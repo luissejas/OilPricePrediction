@@ -1,0 +1,13 @@
+# Environments
+venv/
+env/
+.env
+
+# Python Caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Data (Never upload raw datasets)
+data/
+*.csv
