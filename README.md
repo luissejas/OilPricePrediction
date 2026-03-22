@@ -47,16 +47,14 @@ Cross-Device Hardware Support
 The pipeline automatically detects the available hardware (CUDA GPU or standard CPU) and handles the weight mapping dynamically to ensure zero-error execution in any environment.
 
 ## 🛠️ Getting Started
-Installation
-Bash
-git clone https://github.com/luissejas/OilPricePrediction.git
-cd OilPricePrediction
-pip install -r requirements.txt
-Running the Dashboard
-Upload the interaction_GoogleColab/ notebook to Google Colab.
+### Installation
+- git clone https://github.com/luissejas/OilPricePrediction.git
+- cd OilPricePrediction
+- pip install -r requirements.txt
 
-Run the initialization cell to sync the repository.
-
-Use the Trading Day Slider to select a date and evaluate the AI's performance against actual market closing prices.
+### Running the Dashboard
+- Upload the interaction_GoogleColab/ notebook to Google Colab.
+- Run the initialization cell to sync the repository.
+- Use the Trading Day Slider to select a date and evaluate the AI's performance against actual market closing prices.
 
 ## Disclaimer: This project is for research and educational purposes. Market predictions are probabilistic and do not constitute financial advice.
