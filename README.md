@@ -1,60 +1,40 @@
-# Oil Price Forecasting Engine
-This project implements a dual-model machine learning pipeline to predict crude oil prices (CL=F). It integrates daily market data with specialized architectures in PyTorch and XGBoost to provide a comprehensive analysis of price trends.
+# Oil Price Prediction
 
-## 📂 Repository Architecture
-The project is organized into modular directories to maintain a clear distinction between code, data, and interactive tools.
+This repository contains a machine learning pipeline for predicting daily crude oil closing prices (`CL=F`). It utilizes two distinct approaches—a PyTorch Neural Network and an XGBoost regressor—to generate and compare price forecasts.
 
-## 1. Model Blueprints (src/models/)
-Contains the structural definitions of the forecasting algorithms.
+## 📂 Repository Structure
 
-pytorch_model.py: The architectural class for the Deep Learning Multi-Layer Perceptron.
+* **`src/models/`**: Source code for model architectures and training logic.
+* **`models/`**: Storage for trained model artifacts (`.pth`, `.json`) and the feature scaler (`.pkl`).
+* **`interaction_GoogleColab/`**: Interactive notebook designed for cloud-based inference and visualization.
+* **`data/`**: Directory for processed historical datasets.
+* **`experiments/`**: Development scripts and notebooks used for testing and tuning.
 
-xgboost_model.py: The training and evaluation logic for the Gradient Boosted Tree.
+---
 
-## 2. Trained Artifacts (models/)
-Stores the finalized "brains" and preprocessing tools.
+## ⚡ Setup
 
-champion_nn.pth: Optimized weights for the Neural Network.
+Environment management is handled via [**uv**](https://github.com/astral-sh/uv).
 
-champion_xgboost.json: The saved state of the trained XGBoost model.
+### Local Environment
+1.  Install `uv`.
+2.  Run the following to install dependencies:
+    ```bash
+    uv pip install -r requirements.txt
+    ```
 
-nn_scaler.pkl: The standard scaler used to normalize input features.
+### Google Colab
+The notebooks include a bootstrap cell that installs `uv` and synchronizes the environment automatically upon execution.
 
-## 3. Interactive Dashboard (interaction_GoogleColab/)
-OilPricePrediction_Interaction.ipynb: A cloud-optimized notebook featuring a custom UI. It allows for real-time inference using a trading-day selection slider and live market data.
+---
 
-## 4. Supporting Infrastructure
-data/: Secured storage for the processed_oil_data.csv baseline.
+## 🛠️ Usage
 
-config/: Tracking files for performance metrics and champion scores.
+### Training
+Model training is performed by executing the scripts within `src/models/` or using the notebooks in the `experiments/` folder.
 
-tests/: Unit tests for verifying data loading and model initialization.
+### Inference
+The `interaction_GoogleColab/` directory contains the dashboard for running model inference. It fetches live data via the Yahoo Finance API and provides a slider interface to compare model predictions against actual Wall Street closing prices.
 
-experiments/: A sandbox for feature engineering and hyperparameter tuning.
-
-## 🚀 Key Functionalities
-Side-by-Side Inference
-The system runs two distinct algorithms simultaneously to provide a cross-verified prediction:
-
-Deep Learning (PyTorch): Captures complex non-linear relationships in the price history.
-
-Gradient Boosting (XGBoost): Provides robust, tree-based forecasting based on tabular technical indicators.
-
-Daily Market Integration
-The engine fetches the most recent daily closing prices via the Yahoo Finance API. This ensures that predictions are grounded in the most recent completed trading sessions rather than volatile intra-day fluctuations.
-
-Cross-Device Hardware Support
-The pipeline automatically detects the available hardware (CUDA GPU or standard CPU) and handles the weight mapping dynamically to ensure zero-error execution in any environment.
-
-## 🛠️ Getting Started
-### Installation
-- git clone https://github.com/luissejas/OilPricePrediction.git
-- cd OilPricePrediction
-- pip install -r requirements.txt
-
-### Running the Dashboard
-- Upload the interaction_GoogleColab/ notebook to Google Colab.
-- Run the initialization cell to sync the repository.
-- Use the Trading Day Slider to select a date and evaluate the AI's performance against actual market closing prices.
-
-## Disclaimer: This project is for research and educational purposes. Market predictions are probabilistic and do not constitute financial advice.
+---
+*Note: Market predictions are probabilistic and generated for research purposes.*
