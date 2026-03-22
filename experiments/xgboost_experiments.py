@@ -6,11 +6,18 @@ def run_hyperparameter_search():
     
     # Define the different "Challengers" we want to test
     experiments = [
-        {"name": "Fast & Shallow", "n_estimators": 50, "max_depth": 3, "lr": 0.1},
-        {"name": "Standard", "n_estimators": 100, "max_depth": 5, "lr": 0.1},
-        {"name": "Deep & Slow", "n_estimators": 200, "max_depth": 7, "lr": 0.05},
-        {"name": "Robust Random", "n_estimators": 150, "max_depth": 4, "lr": 0.08}
+        {"name": "Fast & Shallow", "n_estimators": 87, "max_depth": 3, "lr": 0.1},
+        {"name": "Fast & Shallow_more_estimators_v1", "n_estimators": 75, "max_depth": 3, "lr": 0.1},
+        {"name": "Fast & Shallow_more_estimators_v2", "n_estimators": 80, "max_depth": 3, "lr": 0.1},
+        {"name": "Fast & Shallow_more_estimators_v3", "n_estimators": 85, "max_depth": 3, "lr": 0.1},
+        {"name": "Fast & Shallow_more_estimators_v4", "n_estimators": 90, "max_depth": 3, "lr": 0.1}
     ]
+        # Champion 85 estimators
+        # Second run shows more estimators worked better, will try one more rund
+        # Previous models that did not work
+        # {"name": "Standard", "n_estimators": 100, "max_depth": 5, "lr": 0.1},
+        # {"name": "Deep & Slow", "n_estimators": 200, "max_depth": 7, "lr": 0.05},
+        # {"name": "Robust Random", "n_estimators": 150, "max_depth": 4, "lr": 0.08}
 
     results = []
 
