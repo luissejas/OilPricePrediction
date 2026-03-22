@@ -6,7 +6,7 @@ def run_hyperparameter_search():
     
     # Define the different "Challengers" we want to test
     experiments = [
-        {"name": "Fast & Shallow", "n_estimators": 87, "max_depth": 3, "lr": 0.1},
+        {"name": "Fast & Shallow", "n_estimators": 85, "max_depth": 3, "lr": 0.1},
         {"name": "Fast & Shallow_more_estimators_v1", "n_estimators": 75, "max_depth": 3, "lr": 0.1},
         {"name": "Fast & Shallow_more_estimators_v2", "n_estimators": 80, "max_depth": 3, "lr": 0.1},
         {"name": "Fast & Shallow_more_estimators_v3", "n_estimators": 85, "max_depth": 3, "lr": 0.1},
@@ -44,3 +44,5 @@ def run_hyperparameter_search():
 
 if __name__ == "__main__":
     run_hyperparameter_search()
+    # ... after training the champion ...
+    XGBoostForecaster.save_model("models/champion_xgboost.json")

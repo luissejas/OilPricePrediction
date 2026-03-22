@@ -42,6 +42,18 @@ class XGBoostForecaster:
         
         print(f"[{model_name}] Mean Absolute Error: ${mae:.2f} per barrel")
         return mae
+    
+    def save_model(self, file_path="models/champion_xgboost.json"):
+        """Saves the trained model weights to a JSON file."""
+        import os
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        self.model.save_model(file_path)
+        print(f"Model successfully saved to {file_path}")
+
+    def load_model(self, file_path="models/champion_xgboost.json"):
+        """Loads a pre-trained model from a JSON file."""
+        self.model.load_model(file_path)
+        print(f"Model successfully loaded from {file_path}")
 
 if __name__ == "__main__":
     # Testing Version 1: Fast and Shallow
