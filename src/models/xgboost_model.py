@@ -45,11 +45,6 @@ class XGBoostForecaster:
 
 if __name__ == "__main__":
     # Testing Version 1: Fast and Shallow
-    model_v1 = XGBoostForecaster(n_estimators=50, learning_rate=0.1, max_depth=3)
+    model_v1 = XGBoostForecaster(n_estimators=85, learning_rate=0.1, max_depth=3)
     model_v1.load_data()
     model_v1.train_and_evaluate(model_name="V1 (Shallow)")
-
-    # Testing Version 2: Deep and Complex
-    model_v2 = XGBoostForecaster(n_estimators=200, learning_rate=0.05, max_depth=7)
-    model_v2.load_data()
-    model_v2.train_and_evaluate(model_name="V2 (Complex)")
