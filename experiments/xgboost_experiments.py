@@ -44,5 +44,3 @@ def run_hyperparameter_search():
 
 if __name__ == "__main__":
     run_hyperparameter_search()
-    # ... after training the champion ...
-    XGBoostForecaster.save_model("models/champion_xgboost.json")
