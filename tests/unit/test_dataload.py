@@ -52,7 +52,7 @@ def test_feature_engineering_quality(mock_download, loader, mock_yf_data):
     # Act
     loader.fetch_data()
     df = loader.engineer_features()
-    
+
     expected_columns = [
         'price', 'price_lag_1', 'price_lag_3', 
         'sma_7', 'sma_14', 'volatility_7'
@@ -68,3 +68,16 @@ def test_feature_engineering_quality(mock_download, loader, mock_yf_data):
     
     # 3. Ensure we have enough data to actually train a model
     assert len(df) > 100
+
+@patch('src.data.data_loader.yf.download')
+def test_fetch_empty_data_raises_error(mock_download, loader):
+    """
+    Proves that the system gracefully crashes with a ValueError 
+    if Yahoo Finance returns an empty DataFrame (e.g., bad ticker).
+    """
+    # Arrange: Tell the mock to return an empty DataFrame!
+    mock_download.return_value = pd.DataFrame()
+    
+    # Act & Assert: Call fetch_data and trap the expected explosion
+    with pytest.raises(ValueError, match="Error: No data fetched"):
+        loader.fetch_data()
