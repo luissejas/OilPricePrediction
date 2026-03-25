@@ -24,3 +24,17 @@ def test_default_paths():
     """
     forecaster = XGBoostForecaster()
     assert forecaster.data_path == "data/processed_oil_data.csv"
+
+@pytest.mark.slow
+def test_xgboost_training_pipeline_is_stable():
+    """
+    Test 3: Does the ML model actually train and evaluate without crashing?
+    Because model training is extremely CPU intensive, we mark this test as "slow".
+    You can run `pytest -m "not slow"` to perfectly skip this test locally,
+    but your CI/CD server will still run it.
+    """
+    forecaster = XGBoostForecaster(n_estimators=10, max_depth=3)
+    forecaster.load_data()
+    mae = forecaster.train_and_evaluate(model_name="Pytest Automated Test")
+    
+    assert mae > 0  # Mean Absolute Error must be a strictly positive number
