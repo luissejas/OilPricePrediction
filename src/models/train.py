@@ -38,6 +38,13 @@ def train_model(epochs=100, batch_size=16, learning_rate=0.001):
     # We physically push the empty Neural Network up to the Colab GPU (or local CPU)
     model = OilPriceNN(input_size=input_size).to(device)
 
+    # --- CONTINUOUS TRAINING LOGIC ---
+    brain_path = "models/champion_nn.pth"
+    if os.path.exists(brain_path):
+        print(f"Loading previous intelligence from {brain_path} to continue learning...")
+        # map_location ensures we don't crash if moving from Cloud GPU -> Local CPU
+        model.load_state_dict(torch.load(brain_path, map_location=device, weights_only=True))
+
     # 5. Define the Rules of Learning
     criterion = nn.MSELoss() # Mean Squared Error (Standard for continuous price prediction)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)

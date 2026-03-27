@@ -28,7 +28,14 @@ class XGBoostForecaster:
         X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
         y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
 
-        self.model.fit(X_train, y_train)
+        # --- CONTINUOUS TRAINING LOGIC ---
+        model_path = "models/champion_xgboost.json"
+        if os.path.exists(model_path):
+            print(f"Found existing model at {model_path}. Fine-tuning...")
+            self.model.fit(X_train, y_train, xgb_model=model_path)
+        else:
+            self.model.fit(X_train, y_train)
+            
         predictions = self.model.predict(X_test)
         mae = mean_absolute_error(y_test, predictions)
         
