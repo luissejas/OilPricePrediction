@@ -38,3 +38,62 @@ def test_xgboost_training_pipeline_is_stable():
     mae = forecaster.train_and_evaluate(model_name="Pytest Automated Test")
     
     assert mae > 0  # Mean Absolute Error must be a strictly positive number
+
+import torch
+import torch.nn as nn
+from src.models.pytorch_model import OilPriceNN
+from src.models.train import train_model
+
+def test_pytorch_architecture_forward_pass():
+    """
+    Test 4: Does the Neural Network execute matrix math correctly on a standard Tensor block?
+    """
+    model = OilPriceNN(input_size=5)
+    # Arrange: Create exactly 32 rows of fake numerical data (5 features each)
+    fake_input = torch.randn(32, 5)
+    
+    # Act: Thrust the data completely through the Hidden Layers
+    predictions = model(fake_input)
+    
+    # Assert: We gave you 32 rows. Did you safely spit out 32 specific price expectations?
+    assert predictions.shape == (32, 1)
+
+def test_pytorch_architecture_backward_pass():
+    """
+    Test 5: The Single Most Critical Deep Learning Test.
+    Does the algorithm successfully calculate mathematical 'Gradients' (blame) for every single layer?
+    If not, the dials are frozen, and the model is physically incapable of becoming smarter.
+    """
+    model = OilPriceNN(input_size=5)
+    fake_input = torch.randn(32, 5)
+    fake_targets = torch.randn(32, 1) # Fake actual prices
+    
+    predictions = model(fake_input)
+    
+    # Calculate the Boss's Anger Error
+    criterion = nn.MSELoss()
+    loss = criterion(predictions, fake_targets)
+    
+    # Act: True Backpropagation (Walk backward through the factory)
+    loss.backward()
+    
+    # Assert: Interrogate exactly every single Weight dial in the network
+    for param_name, parameter in model.named_parameters():
+        # If the parameter.grad == None, the post-it note failed to attach!
+        assert parameter.grad is not None, f"FATAL AI BUG: Layer '{param_name}' is frozen and dodged the math!"
+
+@pytest.mark.slow
+def test_pytorch_training_pipeline_is_stable():
+    """
+    Test 6: Does the absolute Full Integration Training Loop successfully operate?
+    We run it for exactly 2 epochs to chemically prove stability without wasting 10 minutes of server compute limit.
+    """
+    try:
+        # Ignite the entire architecture locally using your laptop's CPU
+        train_model(epochs=2, batch_size=32)
+        success = True
+    except Exception as e:
+        success = False
+        print(f"Pipeline exploded with error: {e}")
+        
+    assert success is True
