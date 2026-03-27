@@ -97,3 +97,33 @@ def test_pytorch_training_pipeline_is_stable():
         print(f"Pipeline exploded with error: {e}")
         
     assert success is True
+
+from src.models.lstm_model import OilPriceLSTM
+
+def test_lstm_architecture_forward_pass():
+    """
+    Test 7: Does the LSTM successfully ingest a flat (Batch, Features) tensor 
+    and automatically dynamically unsqueeze it into a deep learning sequence (Batch, Seq_len, Features)?
+    """
+    model = OilPriceLSTM(input_size=5)
+    # The DataLoader provides 2D tensors. The LSTM natively requires 3D.
+    fake_input = torch.randn(32, 5) 
+    
+    predictions = model(fake_input)
+    assert predictions.shape == (32, 1)
+
+def test_lstm_architecture_backward_pass():
+    """
+    Test 8: Does the intricate internal memory architecture of the LSTM chemically support backpropagation?
+    """
+    model = OilPriceLSTM(input_size=5)
+    fake_input = torch.randn(32, 5)
+    fake_targets = torch.randn(32, 1)
+    
+    predictions = model(fake_input)
+    criterion = nn.MSELoss()
+    loss = criterion(predictions, fake_targets)
+    loss.backward()
+    
+    for param_name, parameter in model.named_parameters():
+        assert parameter.grad is not None, f"FATAL AI BUG: LSTM Component '{param_name}' is totally frozen!"
